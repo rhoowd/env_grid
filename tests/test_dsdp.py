@@ -60,7 +60,7 @@ def test_action_type_1(env):
         env.reset()
         env.take_action(0)
         obs = env.get_obs()
-        print(obs)
+
         if obs == (0,0):
             cnt_0 += 1
         elif obs == (2,0):
@@ -94,6 +94,10 @@ def test_gym():
 
     obs = env.reset()
     assert obs == (1,0)  # Checkt init state
+    env.render()
+    o, r, d, i = env.step(1)
+    print(o, r, d, i)
+    env.render()
+    assert d
 
-    print("hello")
 

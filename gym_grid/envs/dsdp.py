@@ -2,9 +2,10 @@ from __future__ import print_function
 from __future__ import division
 import numpy as np
 from world import World
+import gym
 
 
-class DsdpEnv(object):
+class DsdpEnv(gym.Env):
     def __init__(self):
         self.world = World()
         self.world.create_world((6,1))
