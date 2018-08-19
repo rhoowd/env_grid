@@ -2,7 +2,7 @@ import pytest
 import sys
 import os
 import numpy as np
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../gym_grid")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "../gym_grid")
 from gym_grid.envs.world import World
 
 
