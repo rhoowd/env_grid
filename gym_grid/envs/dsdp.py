@@ -52,7 +52,7 @@ class DsdpEnv(gym.Env):
             self.flag = True
 
     def check_done(self):
-        return self.get_obs() == (0,0)
+        return self.world.get_pos() == (0,0)
 
     def get_reward(self):
         if self.check_done():
@@ -65,7 +65,7 @@ class DsdpEnv(gym.Env):
 
 
     def get_state(self):
-        return self.get_obs(), self.flag
+        return self.world.get_pos(), self.flag
 
     def get_obs(self):
-        return self.world.get_pos()
+        return self.world.get_pos()[0]

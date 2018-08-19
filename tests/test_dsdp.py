@@ -28,7 +28,7 @@ def test_deterministic_action(env):
     assert env.get_state() == ((5,0), True) # Change flag to True after visiting (5,0)
     take_deterministic_actions(-1, env)  # "Left" action
     assert env.get_state() == ((4,0), True) 
-    assert env.get_obs() == (4,0)
+    assert env.get_obs() == 4
 
 def test_terminate(env):
     assert not env.check_done()
@@ -39,7 +39,7 @@ def test_reset(env):
     take_deterministic_actions(5, env)  # "Right"
     assert env.get_state() == ((5,0), True) 
     result = env.reset()    
-    assert result == (1,0)  # Checkt return of reset()
+    assert result == 1  # Checkt return of reset()
     assert env.get_state() == ((1,0), False)  # Checkt init state
 
 def test_reward(env):
@@ -61,9 +61,9 @@ def test_action_type_1(env):
         env.take_action(0)
         obs = env.get_obs()
 
-        if obs == (0,0):
+        if obs == 0:
             cnt_0 += 1
-        elif obs == (2,0):
+        elif obs == 2:
             cnt_2 += 1
             
     assert cnt_0/trial > 0.4  # It should be 0.5 as trial increases
@@ -93,7 +93,7 @@ def test_gym():
     env = gym.make('grid-dsdp-v0')
 
     obs = env.reset()
-    assert obs == (1,0)  # Checkt init state
+    assert obs == 1  # Checkt init state
     env.render()
     o, r, d, i = env.step(1)
     print(o, r, d, i)
