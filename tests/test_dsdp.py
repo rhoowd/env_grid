@@ -100,4 +100,7 @@ def test_gym():
     env.render()
     assert d
 
+    env.step(1)
+    print(env.action_space.sample())
+
 

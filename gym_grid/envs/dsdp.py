@@ -3,14 +3,19 @@ from __future__ import division
 import numpy as np
 from world import World
 import gym
+from gym import spaces
 
 
 class DsdpEnv(gym.Env):
     def __init__(self):
+        self.size = 6
         self.world = World()
-        self.world.create_world((6,1))
+        self.world.create_world((self.size,1))
         self.world.add_entity((1,0))
         self.flag = False
+
+        self.observation_space = spaces.Discrete(self.size)
+        self.action_space = spaces.Discrete(2)  # 2 actions: 0 (Right), 1 (Left)
 
     def reset(self):
         self.world.set_pos((1,0))
@@ -31,7 +36,8 @@ class DsdpEnv(gym.Env):
 
     def take_action(self, action, a_type=0):
         assert a_type < 2
-        assert action in [0, 1]
+        assert self.action_space.contains(action)
+        # assert action in [0, 1]
 
         if a_type == 0:  # Default action for h-DQN (stochastic for "right" action)
             if action == 0:  # "Right"
@@ -69,3 +75,16 @@ class DsdpEnv(gym.Env):
 
     def get_obs(self):
         return self.world.get_pos()[0]
+
+
+class DsdpEnvOneHot(DsdpEnv):
+    def get_obs(self):
+        o = self.world.get_pos()[0]
+        ret = self.one_hot(o)
+        return ret
+
+    def one_hot(self, o):
+        ret = np.zeros(self.size)
+        ret[o] = 1
+        return ret
+
